@@ -13,25 +13,32 @@ public:
         next = NULL;
     }
 
-    node * add(int x)
+    node *add(int x)
     {
-        node * t=new node (x);
-        node *temp1=this;
+        node *t = new node(x);
+        node *temp1 = this;
         node *temp2;
-        while(temp1->info<=x && temp1->next!=NULL)
+        while (temp1->next != NULL && temp1->info < x)
         {
-            temp2=temp1;
-            temp1=temp1->next;
+            temp2 = temp1;
+            temp1 = temp1->next;
         }
-        if(temp1->next==NULL)
+        if (temp1->next != NULL)
         {
+            temp2->next = t;
+            t->next = temp1;
+            return temp1;
+        }
+        else
+        {
+            if (temp1->info > x)
+            {
+                temp2->next = t;
+                t->next = temp1;
+                return temp1;
+            }
             temp1->next=t;
             return t;
-        }
-        else{
-            temp2->next=t;
-            t->next=temp1;
-            return temp1;
         }
     }
 };
@@ -55,17 +62,16 @@ public:
             node *t = new node(x);
             front = t;
             rear = t;
+            return;
         }
-        else if (front->info >= x)
+        if (front->info >= x)
         {
             node *t = new node(x);
-            t->next = front;
-            front = t;
+            t->next=front;
+            front=t;
+            return;
         }
-        else
-        {
-            rear = front->add(x);
-        }
+        rear=front->add(x);
     }
 
     void display()
