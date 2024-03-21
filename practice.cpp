@@ -1,70 +1,74 @@
-#include <iostream>
-
+#include<iostream>
+#define n 5
 using namespace std;
 
-class node
+class cq
 {
-public:
-    int info;
-    node *next;
-    node() {}
-    node(int x) : info(x)
-    {
-        next = NULL;
+    public:
+    int a[n];
+    int front;
+    int rear;
+    cq(){
+        front=-1;
+        rear=-1;
     }
-    node *add(int x)
+    void add(int x)
     {
-        node *t = new node(x);
-        node *temp1 = this;
-        node *temp2;
-        if (temp1->info >= x)
+        if(front==-1 && rear==-1)
         {
-            t->next = temp1;
-            return t;
+            front=++rear;
+            a[rear]=x;
         }
-        while (temp1->next != NULL && temp1->info < x)
+        else if((rear+1)%n==front)
         {
-            temp2 = temp1;
-            temp1 = temp1->next;
+            cout<<"Over";
         }
-        if (temp1->next != NULL)
-        {
-            temp2->next = t;
-            t->next = temp1;
-            return this;
-        }
-        else
-        {
-            if (temp1->info > x)
-            {
-                temp2->next = t;
-                t->next = temp1;
-                return this;
+        else{
+            if((rear+1)%n==0){
+                rear=0;
             }
-            temp1->next=t;
-            return this;
+            else{
+                rear++;
+            }
+            a[rear]=x;
         }
     }
 
+    void remove()
+    {
+        if(front==-1 && rear==-1){
+            cout<<"jh";
+        }
+        else{
+            if(front==rear){
+                front=rear=-1;
+            }
+            else{
+                front=(front+1)%n;
+            }
+        }
+    }
     void display()
     {
-        node *temp = this;
-        do
+        int c=((rear+n-front)%n)+1;
+        for(int i=0;i<c;i++)
         {
-            cout << temp->info << " ";
-            temp = temp->next;
-        } while (temp != NULL);
+            cout<<a[(front+i)%n]<<" ";
+        }
     }
 };
 
 int main()
 {
-    node *head = new node(29);
-    head = head->add(71);
-    head = head->add(18);
-    head = head->add(30);
-    head = head->add(29);
-    head = head->add(4);
-    head = head->add(28);
-    head->display();
+    cq q;
+    q.add(29);
+    q.remove();
+    q.remove();
+    q.add(37);
+    q.add(18);
+    q.add(4);
+    q.add(71);
+    // q.add(44);
+    // q.add(201);
+    q.display();
 }
