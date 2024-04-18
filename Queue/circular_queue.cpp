@@ -22,7 +22,7 @@ class queue
         arr[++rear]=x;
     }
     else if(overflow()){
-        cout<<"Queue Overflow!";
+        cout<<"Queue Overflow!\n";
     }
     else{
         if((rear+1)%SIZE==0){
@@ -47,7 +47,7 @@ class queue
   void remove()
   {
     if(rear==-1&&front==-1){
-        cout<<"Queue is empty";
+        cout<<"Queue is empty\n";
     }
     else if(front==rear){
         front=rear=-1;
@@ -61,14 +61,11 @@ class queue
 int main()
 {
     queue q;
-    q.add(29);
-    q.remove();
-    q.remove();
     q.add(37);
-    // q.add(18);
-    // q.add(4);
-    // q.add(71);
-    // q.add(44);
-    // q.add(201);
+    q.add(18);
+    q.add(4);
+    q.add(71);
+    q.add(44);
+    q.add(201);
     q.display();
 }

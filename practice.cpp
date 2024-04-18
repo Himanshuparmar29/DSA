@@ -1,74 +1,54 @@
 #include<iostream>
-#define n 5
+
 using namespace std;
 
-class cq
+class node
 {
     public:
-    int a[n];
-    int front;
-    int rear;
-    cq(){
-        front=-1;
-        rear=-1;
+    int info;
+    node *left;
+    node *right;
+    node(){}
+    node(int x):info(x){
+        left=NULL;
+        right=NULL;
     }
-    void add(int x)
-    {
-        if(front==-1 && rear==-1)
-        {
-            front=++rear;
-            a[rear]=x;
-        }
-        else if((rear+1)%n==front)
-        {
-            cout<<"Over";
-        }
-        else{
-            if((rear+1)%n==0){
-                rear=0;
+    void append(int x){
+        node *t=new node(x);
+        if(this->info>x){
+            if(this->left==NULL){
+                this->left=t;
             }
             else{
-                rear++;
+                this->left->append(x);
             }
-            a[rear]=x;
-        }
-    }
-
-    void remove()
-    {
-        if(front==-1 && rear==-1){
-            cout<<"jh";
         }
         else{
-            if(front==rear){
-                front=rear=-1;
+            if(this->right==NULL)
+            {
+                this->right=t;
             }
             else{
-                front=(front+1)%n;
+                this->right->append(x);
             }
         }
     }
-    void display()
+    void intra()
     {
-        int c=((rear+n-front)%n)+1;
-        for(int i=0;i<c;i++)
+        if(this->left!=NULL){
+            this->left->intra();
+        }
+        cout<<this->info<<" ";
+        if(this->right!=NULL)
         {
-            cout<<a[(front+i)%n]<<" ";
+            this->right->intra();
         }
     }
 };
 
 int main()
 {
-    cq q;
-    q.add(29);
-    q.remove();
-    q.remove();
-    q.add(37);
-    q.add(18);
-    q.add(4);
-    q.add(71);
-    // q.add(44);
-    // q.add(201);
-    q.display();
+    node *root=new node(29);
+    root->append(18);
+    root->intra();
 }
