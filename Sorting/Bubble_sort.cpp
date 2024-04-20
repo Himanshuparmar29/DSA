@@ -12,8 +12,8 @@ void display(int a[],int n)
 }
 int main()
 {
-    // int arr[]={201,71,44,37,29,18,4};
-    int arr[]={1,2,3,4,5,6,7};
+    int arr[]={201,71,44,37,29,18,4};
+    // int arr[]={1,2,3,4,5,6,7};
     int flag=0;
     int n=7;
     for(int i=0;i<n-1;i++)

@@ -57,7 +57,5 @@ int main()
     a.append(b);
     b=new node(9);
     a.append(b);
-    b=new node(10);
-    a.append(b);
     a.inorder();
 }
