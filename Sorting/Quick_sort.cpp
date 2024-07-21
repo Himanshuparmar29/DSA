@@ -11,41 +11,35 @@ void display(int a[],int n)
     cout<<endl;
 }
 
-void sort(int a[],int d, int u,int s)
-{
-    if(d>=u){
+void quickSort(int a[], int d, int u) {
+    if (d >= u) {
         return;
     }
-    int temp=d;
-    int pi=a[d];
-    while(1){
-        while (a[d]<= pi && d<s)
-        {
-            d++;
+    int temp = d;
+    int pi = a[d];
+    int left = d + 1;
+    int right = u;
+
+    while (left <= right) {
+        while (left <= right && a[left] <= pi) {
+            left++;
         }
-        while(a[u]> pi && u>=0){
-            u--;
+        while (left <= right && a[right] > pi) {
+            right--;
         }
-        if(d<u)
-        {
-            int t=a[d];
-            a[d]=a[u];
-            a[u]=t;
-        }
-        else{
-            a[temp]=a[u];
-            a[u]=pi;
-            break;
+        if (left < right) {
+            swap(a[left], a[right]);
         }
     }
-    sort(a,0,u-1,u);
-    sort(a,u+1,s-1,s);
-}
+    swap(a[temp], a[right]);
 
+    quickSort(a, d, right - 1);
+    quickSort(a, right + 1, u);
+}
 int main()
 {
     int arr[]={201,71,44,37,29,18,4};
     int s=7;
-    sort(arr,0,6,s);
+    quickSort(arr,0,6);
     display(arr,s);
 }

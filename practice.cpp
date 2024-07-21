@@ -1,54 +1,30 @@
-#include<iostream>
+#include <iostream>
 
 using namespace std;
 
-class node
+void display(int a[], int n)
 {
-    public:
-    int info;
-    node *left;
-    node *right;
-    node(){}
-    node(int x):info(x){
-        left=NULL;
-        right=NULL;
-    }
-    void append(int x){
-        node *t=new node(x);
-        if(this->info>x){
-            if(this->left==NULL){
-                this->left=t;
-            }
-            else{
-                this->left->append(x);
-            }
-        }
-        else{
-            if(this->right==NULL)
-            {
-                this->right=t;
-            }
-            else{
-                this->right->append(x);
-            }
-        }
-    }
-    void intra()
+    for (int i = 0; i < n; i++)
     {
-        if(this->left!=NULL){
-            this->left->intra();
-        }
-        cout<<this->info<<" ";
-        if(this->right!=NULL)
-        {
-            this->right->intra();
-        }
+        cout << a[i] << " ";
     }
-};
-
+    cout << endl;
+}
+int bs(int a[],int lb,int ub,int key)
+{
+    if(lb>ub)
+    {
+        return -1;
+    }
+    int mid=lb+(ub-lb)/2;
+    if(a[mid]==key) return 1;
+    else if(a[mid]<key) return bs(a,lb,mid-1,key);
+    else return bs(a,mid+1,ub,key);
+    return -1;
+}
 int main()
 {
-    node *root=new node(29);
-    root->append(18);
-    root->intra();
+    int arr[] = {201, 71, 44, 37, 29, 18, 4};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    cout<<bs(arr,0,n-1,2011);
 }
