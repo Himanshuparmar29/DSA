@@ -11,30 +11,36 @@ void display(int a[],int n)
     cout<<endl;
 }
 
-void quickSort(int a[], int d, int u) {
-    if (d >= u) {
+void quickSort(int a[], int d, int u)
+{
+    if (d >= u)
+    {
         return;
     }
-    int temp = d;
-    int pi = a[d];
-    int left = d + 1;
-    int right = u;
+    int mid = d + (u - d) / 2;
+    int pivot = a[mid];
+    swap(a[mid], a[u]); 
+    int left = d;
+    int right = u - 1;
 
-    while (left <= right) {
-        while (left <= right && a[left] <= pi) {
+    while (left <= right)
+    {
+        while (left <= right && a[left] <= pivot)
+        {
             left++;
         }
-        while (left <= right && a[right] > pi) {
+        while (left <= right && a[right] > pivot)
+        {
             right--;
         }
-        if (left < right) {
+        if (left < right)
+        {
             swap(a[left], a[right]);
         }
     }
-    swap(a[temp], a[right]);
-
-    quickSort(a, d, right - 1);
-    quickSort(a, right + 1, u);
+    swap(a[left], a[u]); 
+    quickSort(a, d, left - 1);
+    quickSort(a, left + 1, u);
 }
 int main()
 {
